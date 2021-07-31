@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import "./post.css";
 
-export default function Post({img}) {
+export default function Post({ img }) {
   return (
     <div className="post">
       <img
@@ -17,7 +17,7 @@ export default function Post({img}) {
             </Link>
           </span>
           <span className="postCat">
-            <Link className="link" to="/posts?cat=Music">
+            <Link className="link" to="/posts?cat=Life">
               Life
             </Link>
           </span>
