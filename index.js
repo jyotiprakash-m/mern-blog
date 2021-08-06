@@ -8,9 +8,12 @@ const categoriesRoute = require("./routes/categories")
 
 const multer = require('multer')
 const path = require("path");
+var cors = require('cors')
+app.use(cors())
 /**
  * Package that used to use .env file
  */
+const port = parseInt(process.env.PORT, 10) || 3000
 const dotenv = require('dotenv')
 dotenv.config()
 app.use("/images", express.static(path.join(__dirname, "/images")));
@@ -27,11 +30,11 @@ mongoose.connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
-    useFindAndModify: true
+    useFindAndModify: false
 }).then(() => {
     console.log("Database Connected!!")
-    app.listen(5000, () => {
-        console.log("Backend is running on port 5000")
+    app.listen(port, () => {
+        console.log("Backend is running on port ", port)
     })
 }).catch(err => console.log(err))
 
@@ -41,7 +44,7 @@ const storage = multer.diskStorage({
         cb(null, "images");
     },
     filename: (req, file, cb) => {
-        cb(null, "demo.png");
+        cb(null, req.body.name);
     },
 });
 
